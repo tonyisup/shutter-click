@@ -112,4 +112,4 @@ Copyright (C) 2026 the Shutter Click authors.
 
 Shutter Click is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. It is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See `LICENSE` for the full text.
 
-Garmin's Connect IQ SDK and Android companion SDK are separate works under Garmin's own license terms and are not included in this repository.
+Garmin's Connect IQ SDK and Android companion SDK are separate works under Garmin's own license terms and are not included in this repository. As an additional permission under section 7 of the GPL, `LICENSE.EXCEPTION` allows you to convey builds that link or combine Shutter Click with those SDKs.
