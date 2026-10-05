@@ -24,7 +24,10 @@
 | Checking / PLEASE WAIT despite successful ready replies | Native tests reproduce failure with a negative device timer and across signed rollover. Fixed deadline comparisons and replaced the zero cooldown sentinel with `null`; five clock tests pass. Clock fix installed and read-back verified; user then reported “It works!” on the physical watch. Device timer sign has not been independently measured. |
 | Physical Forerunner shutter activation | Pass: user confirmed working shutter after timer fix on October 2, 2026. Targeted companion logs show received `capture`, result `accepted`, and phone reply `SUCCESS`. |
 | Physical Forerunner battery behavior | Pending measurement |
-| Fold, orientation, lock-screen, mode, background and reconnection acceptance | Pending physical tests |
+| Minified release build on the Pixel | Pass: user confirmed a watch-triggered photo with the signed release APK on October 5, 2026, before and after the accessibility changes |
+| Lock-screen, video-mode, dialog, other-app, reconnection and session-restart rejection | Pass: user reported on October 5, 2026 that none of these captured a photo with release APK SHA-256 `f5fcb4ce2a99f07aebd3e6c6b79931fe4d5aa8266756dab71fa430ecee1d6427`; a new session captured only after the watch showed Ready |
+| TalkBack pass over the setup screen | User reported pass on October 5, 2026 |
+| Fold, orientation and tabletop posture acceptance | Pending physical tests |
 
 The simulator APK was used for the successful ADB test. The phone now has the physical-watch APK installed for Bluetooth operation. Android runtime permissions and the enabled Accessibility service were verified from the companion's own package/service state. The user confirmed shutter operation from both the simulator and the physical watch. The physical test also logged a received capture at 12:47:47, an `accepted` result, and a `SUCCESS` reply on October 2, 2026. The project has not independently inspected or verified saved photos.
 
