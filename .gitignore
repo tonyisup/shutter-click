@@ -1,0 +1,17 @@
+.gradle/
+**/build/
+.tooling/
+local.properties
+*.der
+*.pem
+*.jks
+*.keystore
+keystore.properties
+*.prg
+*.iq
+*.debug.xml
+*.mir
+*.lock
+*.iml
+.DS_Store
+dist/

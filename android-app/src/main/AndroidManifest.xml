@@ -1,0 +1,30 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_CONNECTED_DEVICE" />
+    <queries>
+        <package android:name="com.garmin.android.apps.connectmobile" />
+        <package android:name="com.google.android.GoogleCamera" />
+        <intent><action android:name="android.media.action.STILL_IMAGE_CAMERA" /></intent>
+    </queries>
+    <application android:name=".ShutterApplication" android:label="@string/app_name"
+        android:theme="@style/AppTheme" android:icon="@mipmap/ic_launcher"
+        android:allowBackup="false" android:dataExtractionRules="@xml/data_extraction_rules"
+        android:supportsRtl="true">
+        <activity android:name=".MainActivity" android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".RemoteService" android:exported="false"
+            android:foregroundServiceType="connectedDevice" />
+        <service android:name=".CameraControlService" android:exported="true"
+            android:label="@string/camera_control_name"
+            android:permission="android.permission.BIND_ACCESSIBILITY_SERVICE">
+            <intent-filter><action android:name="android.accessibilityservice.AccessibilityService" /></intent-filter>
+            <meta-data android:name="android.accessibilityservice" android:resource="@xml/camera_control" />
+        </service>
+    </application>
+</manifest>

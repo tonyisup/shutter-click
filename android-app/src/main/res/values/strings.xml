@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Shutter Click</string>
+    <string name="camera_control_name">Shutter Click camera control</string>
+    <string name="remote_start_failed">Unable to start remote. Check phone permissions.</string>
+    <string name="camera_open_failed">Pixel Camera is not installed or cannot be opened.</string>
+    <string name="accessibility_description">Presses the visible Pixel Camera photo shutter only when you request a photo from your Garmin watch during an active remote session. Accessibility allows reading camera controls and interacting with them. Shutter Click does not read your photos, capture screen images, or store camera screen contents.</string>
+</resources>
