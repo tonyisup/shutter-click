@@ -1,7 +1,59 @@
 <resources>
     <string name="app_name">Shutter Click</string>
     <string name="camera_control_name">Shutter Click camera control</string>
-    <string name="remote_start_failed">Unable to start remote. Check phone permissions.</string>
+    <string name="tagline">An accessibility remote for Pixel Camera. Press START on your Forerunner to take a photo without reaching for the phone\'s shutter.</string>
+    <string name="simulator_build">Simulator build · ADB connection</string>
+
+    <string name="choose_watch">Choose watch</string>
+    <string name="choose_watch_title">Choose your Forerunner</string>
+    <string name="selected_watch">Watch: %1$s</string>
+    <string name="refresh_garmin">Refresh Garmin connection</string>
+    <string name="allow_permissions">Allow nearby devices and notifications</string>
+    <string name="enable_camera_control">Enable camera control</string>
+    <string name="camera_control_settings">Camera control settings</string>
+    <string name="start_remote">Start remote</string>
+    <string name="open_camera">Open Pixel Camera</string>
+    <string name="end_remote">End remote</string>
+
+    <string name="status_camera_control_enabled">Camera control: enabled</string>
+    <string name="status_camera_control_needed">Camera control: needs setup</string>
+    <string name="status_remote_active">Remote: active</string>
+    <string name="status_remote_off">Remote: off</string>
+    <string name="next_permissions">Next step: allow nearby devices and notifications.</string>
+    <string name="next_camera_control">Next step: enable camera control.</string>
+    <string name="next_watch">Next step: connect your watch in Garmin Connect and install Shutter Click on it.</string>
+    <string name="next_start">Setup complete. Select Start remote.</string>
+    <string name="next_running">Open Pixel Camera in Photo mode, then press START on the watch.</string>
+
+    <string name="notice_no_pixel_camera">Pixel Camera is not installed. Shutter Click works only with Pixel Camera on Google Pixel phones.</string>
+    <string name="notice_english_only">Shutter Click recognizes the Pixel Camera shutter only when the phone language is English. With another language the watch shows Check camera.</string>
+    <string name="help_use">Keep the phone unlocked with Pixel Camera visible in Photo mode. On the watch, press START or tap SHOOT. BACK exits the watch app.</string>
+    <string name="help_limits">The first camera profile recognizes English photo-shutter labels. Unknown controls stay disabled until verified.</string>
+
+    <string name="disclosure_title">Enable camera control</string>
+    <string name="disclosure_message">Shutter Click is an accessibility tool for people who find it hard to reach or press the phone\'s camera shutter.\n\nIt uses an Android Accessibility service to look at Pixel Camera\'s on-screen controls and press its Photo shutter when you ask for a photo from your watch. It acts only during a remote session that you start, and only in Pixel Camera. It does not read other apps, your photos, or the camera image, and it collects no data.\n\nYou can turn the service off at any time in Android Accessibility settings.</string>
+    <string name="disclosure_cancel">Cancel</string>
+    <string name="disclosure_continue">Continue</string>
+    <string name="accessibility_description">An accessibility tool for people who find it hard to reach or press the phone\'s camera shutter. During a remote session that you start, it presses the Photo shutter in Pixel Camera when you press START on your Garmin watch. It looks only at Pixel Camera\'s on-screen controls. It does not read other apps, your photos, or the camera image, and it collects no data.</string>
+
+    <string name="channel_remote">Camera remote</string>
+    <string name="notification_title">Camera remote active</string>
+    <string name="notification_text">Open Pixel Camera in Photo mode. START takes a photo.</string>
+    <string name="remote_start_failed">Unable to start remote. Check phone setup.</string>
     <string name="camera_open_failed">Pixel Camera is not installed or cannot be opened.</string>
-    <string name="accessibility_description">Presses the visible Pixel Camera photo shutter only when you request a photo from your Garmin watch during an active remote session. Accessibility allows reading camera controls and interacting with them. Shutter Click does not read your photos, capture screen images, or store camera screen contents.</string>
+
+    <string name="garmin_idle">Connect to Garmin</string>
+    <string name="garmin_connecting">Connecting to Garmin Connect…</string>
+    <string name="garmin_connecting_simulator">Connecting to Garmin simulator over ADB…</string>
+    <string name="garmin_pair_watch">Open Garmin Connect and pair your watch. SDK: %1$s</string>
+    <string name="garmin_unavailable">Garmin Connect unavailable</string>
+    <string name="garmin_choose_watch">Choose your Forerunner from Garmin Connect</string>
+    <string name="garmin_failed">Garmin connection unavailable: %1$s</string>
+    <string name="watch_connected">Watch connected</string>
+    <string name="watch_disconnected">Watch disconnected</string>
+    <string name="watch_app_missing">Install Shutter Click on the watch</string>
+    <string name="watch_reply_failed">Watch reply failed: %1$s</string>
+    <string name="simulator_connected">Simulator connected</string>
+    <string name="simulator_disconnected">Simulator disconnected</string>
+    <string name="remote_stopped">Remote stopped</string>
 </resources>

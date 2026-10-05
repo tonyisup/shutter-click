@@ -28,17 +28,18 @@ class GarminBridge(
     private var selectedApp: IQApp? = null
     private var replySequence = 0L
     private var latestReplyOutcome = 0L
+    private var replyFailure: String? = null
     val devices = mutableListOf<IQDevice>()
     var selected: IQDevice? = null; private set
     var appInstalled = false; private set
-    var detail = "Connect to Garmin"; private set
+    var detail: String = context.getString(R.string.garmin_idle); private set
     val connected: Boolean get() = ready && selected?.status == IQDevice.IQDeviceStatus.CONNECTED
 
     fun connect() {
         if (starting || ready) return
         starting = true
-        detail = if (BuildConfig.CIQ_SIMULATOR) "Connecting to Garmin simulator over ADB…"
-            else "Connecting to Garmin Connect…"
+        detail = text(if (BuildConfig.CIQ_SIMULATOR) R.string.garmin_connecting_simulator
+            else R.string.garmin_connecting)
         changed()
         val current = ++generation
         try {
@@ -58,12 +59,12 @@ class GarminBridge(
                 override fun onInitializeError(status: ConnectIQ.IQSdkErrorStatus) = post(current) {
                     if (BuildConfig.DEBUG) Log.d("ShutterClickBridge", "SDK initialization: ${status.name}")
                     starting = false; ready = false; appInstalled = false
-                    detail = "Open Garmin Connect and pair your watch. SDK: ${status.name}"
+                    detail = text(R.string.garmin_pair_watch, status.name)
                     disconnected(); changed()
                 }
                 override fun onSdkShutDown() = post(current) {
                     starting = false; ready = false; appInstalled = false
-                    detail = "Garmin Connect unavailable"; disconnected(); changed()
+                    detail = text(R.string.garmin_unavailable); disconnected(); changed()
                 }
             })
         } catch (error: Exception) { failed(error) }
@@ -84,7 +85,7 @@ class GarminBridge(
             else {
                 selectionEpoch++; sdk!!.unregisterAllForEvents()
                 selected = null; selectedApp = null; appInstalled = false; disconnected()
-                detail = "Choose your Forerunner from Garmin Connect"; changed()
+                detail = text(R.string.garmin_choose_watch); changed()
             }
         } catch (error: Exception) { failed(error) }
     }
@@ -106,7 +107,7 @@ class GarminBridge(
                 if (status != IQDevice.IQDeviceStatus.CONNECTED) {
                     selectedApp = null; appInstalled = false; disconnected()
                 } else checkApplication(device, current, selection)
-                detail = if (connected) "Watch connected" else "Watch disconnected"
+                detail = text(if (connected) R.string.watch_connected else R.string.watch_disconnected)
                 changed()
             } }
             val listener = ConnectIQ.IQApplicationEventListener { from, _, messages, status ->
@@ -127,7 +128,7 @@ class GarminBridge(
             // This additional listener is restricted to the local simulator build.
             if (BuildConfig.CIQ_SIMULATOR) sdk!!.registerForAppEvents(device, IQApp(""), listener)
             if (connected) checkApplication(device, current, selection)
-            else detail = "Watch disconnected"
+            else detail = text(R.string.watch_disconnected)
             changed()
         } catch (error: Exception) { failed(error) }
     }
@@ -138,7 +139,7 @@ class GarminBridge(
             // A valid hello/readiness exchange is still required before any capture.
             appInstalled = connected
             selectedApp = IQApp(APP_ID)
-            detail = if (connected) "Simulator connected" else "Simulator disconnected"
+            detail = text(if (connected) R.string.simulator_connected else R.string.simulator_disconnected)
             changed()
             return
         }
@@ -149,13 +150,12 @@ class GarminBridge(
                     appInstalled = app.status == IQApp.IQAppStatus.INSTALLED
                     selectedApp = if (appInstalled) app else null
                     if (BuildConfig.DEBUG) Log.d("ShutterClickBridge", "Installed app: ${app.status}")
-                    detail = if (appInstalled) {
-                        if (connected) "Watch connected" else "Watch disconnected"
-                    } else "Install Shutter Click on the watch"
+                    detail = text(if (!appInstalled) R.string.watch_app_missing
+                        else if (connected) R.string.watch_connected else R.string.watch_disconnected)
                     changed()
                 }
                 override fun onApplicationNotInstalled(applicationId: String) = postSelection(current, selection) {
-                    selectedApp = null; appInstalled = false; detail = "Install Shutter Click on the watch"; changed()
+                    selectedApp = null; appInstalled = false; detail = text(R.string.watch_app_missing); changed()
                 }
             })
         } catch (error: Exception) { failed(error) }
@@ -177,10 +177,12 @@ class GarminBridge(
                         if (reply < latestReplyOutcome) return@postSelection
                         latestReplyOutcome = reply
                         if (status != ConnectIQ.IQMessageStatus.SUCCESS) {
-                            detail = "Watch reply failed: ${status.name}"
+                            detail = text(R.string.watch_reply_failed, status.name)
+                            replyFailure = detail
                             disconnected(); changed()
-                        } else if (detail.startsWith("Watch reply failed:")) {
-                            detail = if (BuildConfig.CIQ_SIMULATOR) "Simulator connected" else "Watch connected"
+                        } else if (detail == replyFailure) {
+                            detail = text(if (BuildConfig.CIQ_SIMULATOR) R.string.simulator_connected
+                                else R.string.watch_connected)
                             changed()
                         }
                     }
@@ -203,9 +205,10 @@ class GarminBridge(
         selected = null; selectedApp = null; devices.clear()
         simulatorSender?.shutdownNow(); simulatorSender = null
         try { sdk?.unregisterAllForEvents(); sdk?.shutdown(context) } catch (_: Exception) {}
-        sdk = null; detail = "Remote stopped"; changed()
+        sdk = null; detail = text(R.string.remote_stopped); changed()
     }
 
+    private fun text(id: Int, vararg values: Any) = context.getString(id, *values)
     private fun post(expected: Int, action: () -> Unit) {
         main.post { if (generation == expected) action() }
     }
@@ -213,7 +216,7 @@ class GarminBridge(
         post(expected) { if (selectionEpoch == selection) action() }
     private fun failed(error: Exception) {
         if (BuildConfig.DEBUG) Log.d("ShutterClickBridge", "Bridge exception: ${error.javaClass.simpleName}")
-        detail = "Garmin connection unavailable: ${error.javaClass.simpleName}"
+        detail = text(R.string.garmin_failed, error.javaClass.simpleName)
         appInstalled = false; starting = false
         disconnected(); changed()
     }

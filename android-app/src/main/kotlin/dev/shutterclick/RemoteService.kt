@@ -33,23 +33,23 @@ class RemoteService : Service() {
             stopSelf(); return START_NOT_STICKY
         }
         val manager = getSystemService(NotificationManager::class.java)
-        manager.createNotificationChannel(NotificationChannel(CHANNEL, "Camera remote", NotificationManager.IMPORTANCE_LOW))
+        manager.createNotificationChannel(NotificationChannel(CHANNEL, getString(R.string.channel_remote), NotificationManager.IMPORTANCE_LOW))
         val stop = PendingIntent.getService(this, 0, Intent(this, RemoteService::class.java).setAction(STOP),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         val open = PendingIntent.getActivity(this, 1, Intent(this, MainActivity::class.java),
             PendingIntent.FLAG_IMMUTABLE or PendingIntent.FLAG_UPDATE_CURRENT)
         val notification = Notification.Builder(this, CHANNEL)
             .setSmallIcon(R.drawable.ic_shutter)
-            .setContentTitle("Camera remote active")
-            .setContentText("Open Pixel Camera in Photo mode. START takes a photo.")
+            .setContentTitle(getString(R.string.notification_title))
+            .setContentText(getString(R.string.notification_text))
             .setContentIntent(open).setOngoing(true)
-            .addAction(Notification.Action.Builder(null, "End remote", stop).build()).build()
+            .addAction(Notification.Action.Builder(null, getString(R.string.end_remote), stop).build()).build()
         try {
             startForeground(1, notification, ServiceInfo.FOREGROUND_SERVICE_TYPE_CONNECTED_DEVICE)
             remote.begin()
             main.post(expiryCheck)
         } catch (_: Exception) {
-            Toast.makeText(this, "Unable to start remote. Check phone setup.", Toast.LENGTH_LONG).show()
+            Toast.makeText(this, R.string.remote_start_failed, Toast.LENGTH_LONG).show()
             stopSelf()
         }
         return START_NOT_STICKY
