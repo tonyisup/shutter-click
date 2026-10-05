@@ -55,12 +55,13 @@ Shutter Click is free software under the GNU GPL. Source code: https://github.co
 Shutter Click is an independent project and is not affiliated with or endorsed by Garmin or Google. Garmin, Forerunner and Connect IQ are trademarks of Garmin Ltd. or its subsidiaries. Google Pixel is a trademark of Google LLC.
 ```
 
-## Graphics still needed
+## Graphics
 
-- App icon, 512 × 512 PNG: the green disc with the cream ring from the launcher icon
-- Feature graphic, 1024 × 500
-- At least 2 phone screenshots: the setup screen with the remote active, and Pixel Camera with the session notification
-- Optional: a photo of the watch showing Ready
+- App icon, 512 × 512: `store/graphics/play-icon-512.png`
+- Feature graphic, 1024 × 500: `store/graphics/play-feature-1024x500.png`
+- Both are rendered from the `.svg` files beside them with `rsvg-convert`.
+
+Still needed: at least 2 phone screenshots (the setup screen with the remote active, and Pixel Camera with the session notification), and optionally a photo of the watch showing Ready.
 
 ## Release notes for the first upload
 

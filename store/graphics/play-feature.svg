@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="500" viewBox="0 0 1024 500">
+  <rect width="1024" height="500" fill="#294F38"/>
+  <circle cx="232" cy="250" r="108" fill="none" stroke="#F5F5F0" stroke-width="24"/>
+  <text x="408" y="242" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="84" font-weight="500" fill="#F5F5F0">Shutter Click</text>
+  <text x="412" y="304" font-family="Helvetica Neue, Helvetica, Arial, sans-serif" font-size="32" fill="#F5F5F0" fill-opacity="0.85">A camera remote on your wrist</text>
+</svg>
