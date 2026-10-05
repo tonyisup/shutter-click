@@ -8,7 +8,7 @@ if [[ ! -x "$ciq_sdk/bin/monkeyc" ]]; then
     exit 1
 fi
 if [[ ! -f "$ciq_key" ]]; then
-    printf 'Set CIQ_DEVELOPER_KEY to your private DER signing key; see README.md.\n' >&2
+    printf 'Set CIQ_DEVELOPER_KEY to your private DER signing key; see docs/DEVELOPMENT.md.\n' >&2
     exit 1
 fi
 cd "$task_root"
